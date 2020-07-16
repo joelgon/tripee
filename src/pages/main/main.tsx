@@ -167,7 +167,7 @@ export default function Main() {
               <TableCell component="th">{user.externalId}</TableCell>
               <TableCell component="th">{user.cellphone}</TableCell>
               <TableCell component="th">{user.email}</TableCell>
-              <TableCell component="th">{user.status}</TableCell>
+              <TableCell component="th">{user.status === 1 ? 'Habilitado' : 'Desabilitado'}</TableCell>
             </TableRow>
           ))}    
           {emptyRows > 0 && (
