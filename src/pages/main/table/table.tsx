@@ -132,6 +132,10 @@ export default function Tables() {
     loaders()
   }, [])
 
+  function Capture(id: number){
+    console.log(id)
+  }
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -152,12 +156,12 @@ export default function Tables() {
               : Users
             ).map((user) => (
               <TableRow key={user.id}>
-                <TableCell component="th" scope="row">{user.id}</TableCell>
-                <TableCell component="th">{user.name}</TableCell>
-                <TableCell component="th">{user.cdcId}</TableCell>
-                <TableCell component="th">{user.ridesTotal}</TableCell>
-                <TableCell component="th">{user.priceTotal}</TableCell>
-                <TableCell component="th">{user.status}</TableCell>
+                <TableCell component="th" scope="row" onClick={() => Capture(user.id)}>{user.id}</TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>{user.name}</TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>{user.cdcId}</TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>{user.ridesTotal}</TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>{user.priceTotal}</TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>{user.status}</TableCell>
               </TableRow>
             ))}    
             {emptyRows > 0 && (
