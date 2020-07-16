@@ -43,7 +43,7 @@ const Login: React.FC<SomeComponentProps> = ({history}) => {
                     onChange={({target}) => setPassword(target.value)}
                 />
             </div>
-            <button type="button" onClick={() => login()} className="btn btn-primary">Login</button>
+            <button type="button" id='btn' onClick={() => login()} className="btn btn-primary">Login</button>
         </form>
     </div>
   );
