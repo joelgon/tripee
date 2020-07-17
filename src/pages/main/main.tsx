@@ -114,7 +114,9 @@ export default function Teste() {
 
   function OrderDecrById() {
     console.log('até foi')
-    Users.sort((a, b) => (a.id < b.id) ? -1 : 1);
+    const user = Users
+      user.sort((a, b) => (a.id < b.id) ? -1 : 1);
+    setUsers(user);
   };
 
   return (
