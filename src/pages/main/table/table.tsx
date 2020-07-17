@@ -119,9 +119,9 @@ export default function Teste() {
             >
               {theme.direction === 'rtl' ? <LastPage /> : <FirstPage />}
             </IconButton>
-      
-            <Pagination count={Indice()} color='primary' page={page+1} onChange={handleChange}/>
-      
+            <IconButton>
+              <Pagination count={Indice()} color='primary' page={page+1} onChange={handleChange}/>
+            </IconButton>
             <IconButton
               onClick={handleLastPageButtonClick}
               disabled={page >= Math.ceil(count / rowsPerPage) - 1}
@@ -171,7 +171,7 @@ export default function Teste() {
               <TableRow>
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                  colSpan={3}
+                  colSpan={6}
                   count={Users.length}
                   rowsPerPage={rowsPerPage}
                   page={page}
