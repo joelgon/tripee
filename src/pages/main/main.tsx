@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {makeStyles, Theme, createStyles} from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
+import {ArrowDropDown, ArrowDropUp} from '@material-ui/icons/';
 import {
   Table, TableBody, TableCell, TableContainer, 
   TableHead, TableRow, TableFooter, TablePagination,
@@ -8,6 +9,8 @@ import {
 } from '@material-ui/core';
 
 import api from '../../services/api'
+
+import './main.css'
 
 
 interface User {
@@ -37,77 +40,82 @@ const useStyles1 = makeStyles((theme: Theme) =>
 );
 
 export default function Teste() {
-    
-    const token = localStorage.getItem('Token')
-    const [Users, setUsers] = useState<User[]>([])
-  
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, Users.length - page * rowsPerPage);
-    const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
-
-    const useStyles = makeStyles({
-        table: {
-            minWidth: 650,
-        },
-    });
-
-    const classes = useStyles()
-
-    useEffect(() => {
-        async function loaders(){
-            const response = await api.get('/admin/v1/reports/users?companyId=3', {
-            headers: { Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxkaWJhc3RpYW5pQGhvdG1haWwuY29tIiwiaWQiOjU5LCJ1c2VySWQiOjExNywiZXhwIjoxNTk5NzkzODUxLjU0NCwiaWF0IjoxNTk0NjA5ODUxfQ.OTtI51grVrmtrHMhSgGoNikNWTY9xTr1_km-zHu9W0s' }
-            })
-        setUsers(response.data.userReport)
-        }
-        loaders()
-    }, [])
 
     function Capture(id: number){
-        console.log(id)
+      console.log(id)
     }
 
-    function TablePaginationActions(props: TablePaginationActionsProps) {
-      const classes = useStyles1();
-      const { page, rowsPerPage} = props;
+  function TablePaginationActions(props: TablePaginationActionsProps) {
+    const classes = useStyles1();
+    const { page, rowsPerPage} = props;
         
-      const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value -1);
-      };
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+      setPage(value -1);
+    };
 
-      const Indice = () => {
-        const TotalReg = Users.length
-        const flag = TotalReg % rowsPerPage
+    const Indice = () => {
+      const TotalReg = Users.length
+      const flag = TotalReg % rowsPerPage
+      
+      if (flag === 0) {
+        return Math.floor(TotalReg / rowsPerPage) 
+      }
+      else{
+        return Math.floor(TotalReg / rowsPerPage) + 1
+      }
+    } 
+    return (
+      <div className={classes.root}>
         
-        if (flag === 0) {
-          return Math.floor(TotalReg / rowsPerPage) 
-        }
-        else{
-          return Math.floor(TotalReg / rowsPerPage) + 1
-        }
-      } 
-      return (
-        <div className={classes.root}>
-          
-          <Pagination 
-            count={Indice()} color='primary' page={page+1} 
-            onChange={handleChange} showFirstButton={true} 
-            showLastButton={true}size='small'siblingCount={3}/>
-          
-        </div>
-      );
-    }
+        <Pagination 
+          count={Indice()} color='primary' page={page+1} 
+          onChange={handleChange} showFirstButton={true} 
+          showLastButton={true}size='small'siblingCount={3}/>
+        
+      </div>
+    );
+  }
+
+  const token = localStorage.getItem('Token')
+  const [Users, setUsers] = useState<User[]>([])
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, Users.length - page * rowsPerPage);
+  const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+      setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+      setRowsPerPage(parseInt(event.target.value, 10));
+      setPage(0);
+  };
+
+  const useStyles = makeStyles({
+      table: {
+          minWidth: 650,
+      },
+  });
+
+  const classes = useStyles()
+
+  useEffect(() => {
+      async function loaders(){
+          const response = await api.get('/admin/v1/reports/users?companyId=3', {
+          headers: { Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxkaWJhc3RpYW5pQGhvdG1haWwuY29tIiwiaWQiOjU5LCJ1c2VySWQiOjExNywiZXhwIjoxNTk5NzkzODUxLjU0NCwiaWF0IjoxNTk0NjA5ODUxfQ.OTtI51grVrmtrHMhSgGoNikNWTY9xTr1_km-zHu9W0s' }
+          })
+      setUsers(response.data.userReport)
+      }
+      loaders()
+  }, [])
+
+  function OrderDecrById() {
+    console.log('até foi')
+    Users.sort((a, b) => (a.id < b.id) ? -1 : 1);
+  };
 
   return (
     <div>
@@ -115,12 +123,84 @@ export default function Teste() {
         <Table className={classes.table} arial-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
-              <TableCell>Nome</TableCell>
-              <TableCell>CDC</TableCell>
-              <TableCell>RidesTotal</TableCell>
-              <TableCell>PriceTotal</TableCell>
-              <TableCell>Status</TableCell>
+              <TableCell className='none'>
+              <div className='Testes'>
+                  <div>
+                    ID
+                  </div>
+                  <div className='teste'>
+                    <button className='none-button' onClick={() => OrderDecrById()}>
+                      <ArrowDropUp/>
+                    </button>
+                    <button className='none-button'>
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+              <div className='Testes'>
+                  <div>
+                    Nome
+                  </div>
+                  <div className='teste'>
+                    <button className='none-button'>
+                      <ArrowDropUp />
+                    </button>
+                    <button className='none-button'>
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell className='align'>
+                <div className='Testes'>
+                  <div>
+                    CDC
+                  </div>
+                  <div className='teste'>
+                    <button className='none-button'>
+                      <ArrowDropUp />
+                    </button>
+                    <button className='none-button'>
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+              <div className='Testes'>
+                  <div>
+                    Corridas
+                  </div>
+                  <div className='teste'>
+                    <button className='none-button'>
+                      <ArrowDropUp />
+                    </button>
+                    <button className='none-button'>
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className='Testes'>
+                  <div>
+                    PriceTotal
+                  </div>
+                  <div className='teste'>
+                    <button className='none-button'>
+                      <ArrowDropUp />
+                    </button>
+                    <button className='none-button'>
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+                Status
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

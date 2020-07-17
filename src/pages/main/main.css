@@ -1,0 +1,25 @@
+.teste{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.Testes{
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.none-button{
+    background: none;
+	color: inherit;
+	border: none;
+    padding: 0;
+    margin-bottom: 0px;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    display: flex;
+    width: 10px;
+    height: 10px;
+    flex-direction: column;
+}
