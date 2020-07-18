@@ -18,7 +18,7 @@ interface User {
     name: string,
     cdcId: number,
     ridesTotal: number,
-    priceTotal: Float32Array,
+    priceTotal: string,
     valAVG: Float32Array,
     status: string
 }
@@ -104,7 +104,7 @@ export default function Teste() {
 
   useEffect(() => {
       async function loaders(){
-          const response = await api.get('/admin/v1/reports/users?companyId=3', {
+          const response = await api.get('/admin/v1/reports/users?companyId=10', {
           headers: { Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxkaWJhc3RpYW5pQGhvdG1haWwuY29tIiwiaWQiOjU5LCJ1c2VySWQiOjExNywiZXhwIjoxNTk5NzkzODUxLjU0NCwiaWF0IjoxNTk0NjA5ODUxfQ.OTtI51grVrmtrHMhSgGoNikNWTY9xTr1_km-zHu9W0s' }
           })
       setUsers(response.data.userReport)
@@ -112,10 +112,61 @@ export default function Teste() {
       loaders()
   }, [])
 
-  function OrderDecrById() {
-    console.log('até foi')
-    const user = Users
-      user.sort((a, b) => (a.id < b.id) ? -1 : 1);
+  function OrderDecrById(flag: number) {
+    const user = [...Users]
+    if (flag === 0) {
+      user.sort((a, b) => (a.id - b.id) ? -1 : 1);  
+    }else{
+      user.sort((a, b) => (a.id + b.id) ? -1 : 1);
+    }
+    setUsers(user);
+  };
+
+  function OrdemByName(flag: number) {
+    const user = [...Users]
+    if (flag === 0) {
+      user.sort((a, b) => (a.name > b.name) ? -1 : 1);  
+    }else{
+      user.sort((a, b) => (a.name < b.name) ? -1 : 1);
+    }
+    setUsers(user);
+  };
+
+  function OrdemByCdc(flag: number) {
+    const user = [...Users]
+    if (flag === 0) {
+      user.sort((a, b) => (a.cdcId - b.cdcId) ? -1 : 1);  
+    }else{
+      user.sort((a, b) => (a.cdcId + b.cdcId) ? -1 : 1);
+    }
+    setUsers(user);
+  };
+
+  function OrdemByCorrida(flag: number) {
+    const user = [...Users]
+    if (flag === 0) {
+      user.sort((a, b) => (a.ridesTotal > b.ridesTotal) ? -1 : 1);  
+    }else{
+      user.sort((a, b) => (a.ridesTotal < b.ridesTotal) ? -1 : 1);
+    }
+    setUsers(user);
+  };
+
+  function OrdemByPrice(flag: number) {
+    const user = [...Users] 
+    user.sort(function sortFunction(a, b) { 
+      var c = a.priceTotal;
+      var d = c.split(" ")
+      var e =parseFloat(d[1].replace(/\./gi,'').replace(/,/gi,'.'))
+      var f = b.priceTotal;
+      var g = f.split(" ")
+      var h = parseFloat(g[1].replace(/\./gi,'').replace(/,/gi,'.'));
+      if (flag === 0) {
+        return (e > h ? -1 : 1)  
+      }else{
+        return (e < h ? -1 : 1)
+      }
+    });
     setUsers(user);
   };
 
@@ -126,79 +177,79 @@ export default function Teste() {
           <TableHead>
             <TableRow>
               <TableCell className='none'>
-              <div className='Testes'>
-                  <div>
-                    ID
-                  </div>
-                  <div className='teste'>
-                    <button className='none-button' onClick={() => OrderDecrById()}>
-                      <ArrowDropUp/>
-                    </button>
-                    <button className='none-button'>
-                      <ArrowDropDown />
-                    </button>
-                  </div>
+              <div className='Align-items'>
+                <div>
+                  ID
+                </div>
+                <div>
+                  <button className='none-button' onClick={() => OrderDecrById(0)}>
+                    <ArrowDropUp/>
+                  </button>
+                  <button className='none-button' onClick={() => OrderDecrById(1)}>
+                    <ArrowDropDown/>
+                  </button>
+                </div>
                 </div>
               </TableCell>
               <TableCell>
-              <div className='Testes'>
+              <div className='Align-items'>
                   <div>
                     Nome
                   </div>
-                  <div className='teste'>
-                    <button className='none-button'>
+                  <div>  
+                    <button className='none-button' onClick={() => OrdemByName(0)}>
                       <ArrowDropUp />
                     </button>
-                    <button className='none-button'>
-                      <ArrowDropDown />
+                    <button className='none-button' onClick={() => OrderDecrById(1)}>
+                      <ArrowDropDown/>
                     </button>
                   </div>
                 </div>
               </TableCell>
-              <TableCell className='align'>
-                <div className='Testes'>
+              <TableCell>
+                <div className='Align-items'>
                   <div>
                     CDC
                   </div>
-                  <div className='teste'>
-                    <button className='none-button'>
-                      <ArrowDropUp />
-                    </button>
-                    <button className='none-button'>
-                      <ArrowDropDown />
-                    </button>
-                  </div>
+                    <div>  
+                      <button className='none-button' onClick={() => OrdemByCdc(0)}>
+                        <ArrowDropUp />
+                      </button>
+                      <button className='none-button' onClick={() => OrderDecrById(1)}>
+                        <ArrowDropDown/>
+                      </button>
+                    </div>
                 </div>
               </TableCell>
               <TableCell>
-              <div className='Testes'>
-                  <div>
-                    Corridas
-                  </div>
-                  <div className='teste'>
-                    <button className='none-button'>
-                      <ArrowDropUp />
-                    </button>
-                    <button className='none-button'>
-                      <ArrowDropDown />
-                    </button>
-                  </div>
+              <div className='Align-items'>
+                <div>
+                  Corridas
                 </div>
+                <div>
+                  <button className='none-button' onClick={() => OrdemByCorrida(0)}>
+                    <ArrowDropUp />
+                  </button>
+                  <button className='none-button' onClick={() => OrderDecrById(1)}>
+                    <ArrowDropDown/>
+                  </button>
+                </div>
+              </div>
               </TableCell>
               <TableCell>
-                <div className='Testes'>
+                <div className='Align-items'>
                   <div>
                     PriceTotal
                   </div>
-                  <div className='teste'>
-                    <button className='none-button'>
-                      <ArrowDropUp />
-                    </button>
-                    <button className='none-button'>
-                      <ArrowDropDown />
-                    </button>
+                    <div>
+                      <button className='none-button' onClick={() => OrdemByPrice(0)}>
+                        <ArrowDropUp />
+                      </button>
+                      <button className='none-button' onClick={() => OrderDecrById(1)}>
+                        <ArrowDropDown/>
+                      </button>
+                    </div>
                   </div>
-                </div>
               </TableCell>
               <TableCell>
                 Status
