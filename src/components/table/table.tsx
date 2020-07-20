@@ -193,9 +193,6 @@ export default function Teste() {
         <Table className={classes.table} arial-label="simple table">
           <TableHead>
             <TableRow>
-                {Object.keys(Users).map((user, ind) =>(
-                    
-                ))}
               <TableCell className="none">
                 <div className="Align-items">
                   <div>ID</div>

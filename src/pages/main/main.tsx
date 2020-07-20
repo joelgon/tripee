@@ -136,7 +136,6 @@ export default function Teste() {
     } else {
       user.sort((a, b) => a.id - b.id);
     }
-    console.log(Object.keys(Users[0]))
     setUsers(user);
   }
 
@@ -224,7 +223,7 @@ export default function Teste() {
                   page * rowsPerPage + rowsPerPage
                 )
               : Users
-            ).map((user) => (
+            ).map(user => (
               <TableRow key={user.id}>
                 {Users.length > 0 && Object.keys(Users[0]).map(keyname =>(
                   <TableCell key={keyname} component="th" onClick={() => Capture(user.id)}>
