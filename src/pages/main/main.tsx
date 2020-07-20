@@ -158,17 +158,6 @@ export default function Teste() {
     }
     setUsers(user);
   }
-
-  function OrdemByCorrida(flag: number) {
-    const user = [...Users];
-    if (flag === 0) {
-      user.sort((a, b) => b.ridesTotal - a.ridesTotal);
-    } else {
-      user.sort((a, b) => a.ridesTotal - b.ridesTotal);
-    }
-    setUsers(user);
-  }
-
   function OrdemByPrice(flag: number) {
     const user = [...Users];
     user.sort(function sortFunction(a, b) {
@@ -187,6 +176,28 @@ export default function Teste() {
     setUsers(user);
   }
 
+  function OrdemByCorrida(flag: number) {
+    const user = [...Users];
+    if (flag === 0) {
+      user.sort((a, b) => b.ridesTotal - a.ridesTotal);
+    } else {
+      user.sort((a, b) => a.ridesTotal - b.ridesTotal);
+    }
+    setUsers(user);
+  }
+
+  function ordination(keyname: string, flag: number){
+    const users = [...Users]
+    users.sort((a, b) => {
+      for (const key in a) {
+        if (key === keyname) {
+          console.log(a)
+        }
+        return a.id - b.id ? -1 : 1
+      }
+    });
+  }
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -200,13 +211,13 @@ export default function Teste() {
                     <div>
                       <button
                         className="none-button"
-                        onClick={() => OrderDecrById(0)}
+                        onClick={() => ordination(keyname, 0)}
                       >
                         <ArrowDropUp />
                       </button>
                       <button
                         className="none-button"
-                        onClick={() => OrderDecrById(1)}
+                        onClick={() => ordination(keyname, 1)}
                       >
                         <ArrowDropDown />
                       </button>
@@ -226,7 +237,7 @@ export default function Teste() {
             ).map(user => (
               <TableRow key={user.id} >
                 {Object.entries(user).map((keyname) =>(
-                  <TableCell key={user.id} component="th" onClick={() => Capture(user.id)}>
+                  <TableCell key={keyname[0]} component="th" onClick={() => Capture(user.id)}>
                     {keyname[1]}
                   </TableCell>
                 ))}
