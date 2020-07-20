@@ -223,11 +223,11 @@ export default function Teste() {
                   page * rowsPerPage + rowsPerPage
                 )
               : Users
-            ).map(user => (
-              <TableRow key={user.id}>
-                {Users.length > 0 && Object.keys(Users[0]).map(keyname =>(
-                  <TableCell key={keyname} component="th" onClick={() => Capture(user.id)}>
-                    {}
+            ).map(users => (
+              <TableRow key={users.id}>
+                {Object.entries(users).map((user, keyname) =>(
+                  <TableCell key={users.id} component="th" onClick={() => Capture(users.id)}>
+                    {user[keyname]}
                   </TableCell>
                 ))}
               </TableRow>
