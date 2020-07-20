@@ -136,7 +136,6 @@ export default function Teste() {
     } else {
       user.sort((a, b) => a.id - b.id);
     }
-    console.log(Object.keys(Users[0]))
     setUsers(user);
   }
 
@@ -194,27 +193,105 @@ export default function Teste() {
         <Table className={classes.table} arial-label="simple table">
           <TableHead>
             <TableRow>
-              {Users.length > 0 && Object.keys(Users[0]).map(keyname =>(
-                <TableCell className="none" key={keyname}>
-                  <div className="Align-items">
-                    <div>{keyname}</div>
-                    <div>
-                      <button
-                        className="none-button"
-                        onClick={() => OrderDecrById(0)}
-                      >
-                        <ArrowDropUp />
-                      </button>
-                      <button
-                        className="none-button"
-                        onClick={() => OrderDecrById(1)}
-                      >
-                        <ArrowDropDown />
-                      </button>
-                    </div>
+                {Object.keys(Users).map((user, ind) =>(
+                    
+                ))}
+              <TableCell className="none">
+                <div className="Align-items">
+                  <div>ID</div>
+                  <div>
+                    <button
+                      className="none-button"
+                      onClick={() => OrderDecrById(0)}
+                    >
+                      <ArrowDropUp />
+                    </button>
+                    <button
+                      className="none-button"
+                      onClick={() => OrderDecrById(1)}
+                    >
+                      <ArrowDropDown />
+                    </button>
                   </div>
-                </TableCell>
-              ))}
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="Align-items">
+                  <div>Nome</div>
+                  <div>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByName(0)}
+                    >
+                      <ArrowDropUp />
+                    </button>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByName(1)}
+                    >
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="Align-items">
+                  <div>CDC</div>
+                  <div>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByCdc(0)}
+                    >
+                      <ArrowDropUp />
+                    </button>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByCdc(1)}
+                    >
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="Align-items">
+                  <div>Corridas</div>
+                  <div>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByCorrida(0)}
+                    >
+                      <ArrowDropUp />
+                    </button>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByCorrida(1)}
+                    >
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>
+                <div className="Align-items">
+                  <div>PriceTotal</div>
+                  <div>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByPrice(0)}
+                    >
+                      <ArrowDropUp />
+                    </button>
+                    <button
+                      className="none-button"
+                      onClick={() => OrdemByPrice(1)}
+                    >
+                      <ArrowDropDown />
+                    </button>
+                  </div>
+                </div>
+              </TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -226,11 +303,28 @@ export default function Teste() {
               : Users
             ).map((user) => (
               <TableRow key={user.id}>
-                {Users.length > 0 && Object.keys(Users[0]).map(keyname =>(
-                  <TableCell key={keyname} component="th" onClick={() => Capture(user.id)}>
-                    {}
-                  </TableCell>
-                ))}
+                <TableCell
+                  component="th"
+                  scope="row"
+                  onClick={() => Capture(user.id)}
+                >
+                  {user.id}
+                </TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>
+                  {user.name}
+                </TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>
+                  {user.cdcId}
+                </TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>
+                  {user.ridesTotal}
+                </TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>
+                  {user.priceTotal}
+                </TableCell>
+                <TableCell component="th" onClick={() => Capture(user.id)}>
+                  {user.status}
+                </TableCell>
               </TableRow>
             ))}
             {emptyRows > 0 && (
