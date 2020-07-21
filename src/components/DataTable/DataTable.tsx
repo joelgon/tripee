@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
@@ -42,6 +42,11 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
 
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(5);
+
+  useEffect(() => {
+    setData(datatable)
+    setColumns(datatableColumns)
+  }, [datatable, datatableColumns]);
 
   const useStyles1 = makeStyles((theme: Theme) =>
   createStyles({
