@@ -35,8 +35,8 @@ interface IDatatableProps {
 
 const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datatableColumns }) => {
 
-  const [data, setData] = useState<IDatatable[]>(datatable);
-  const [columns, setColumns] = useState<IDatatableColumn[]>(datatableColumns);
+  const [data, setData] = useState<IDatatable[]>([]);
+  const [columns, setColumns] = useState<IDatatableColumn[]>([]);
 
   const [orderedColumn, setOrderedColumn] = useState<IDatatableOrderedColumn | null>(null);
 
