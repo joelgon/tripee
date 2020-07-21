@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Pagination from "@material-ui/lab/Pagination";
 import { ArrowDropUp } from "@material-ui/icons/";
 import {
@@ -41,6 +42,16 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
 
   const [page, setPage] = useState(0);
   const [rows, setRows] = useState(5);
+
+  const useStyles1 = makeStyles((theme: Theme) =>
+  createStyles({
+      root: {
+        flexShrink: 0,
+        marginLeft: theme.spacing(2.5),
+      },
+    })
+  );
+  const classes = useStyles1();
 
   const items = useMemo(() => {
     if (rows === -1) {
@@ -151,6 +162,7 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
         { !isEmpty && (
           <TableRow>
             <TablePagination
+              style={{margin: '0px, 400px'}}
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
               colSpan={columns.length}
               count={data.length}
@@ -164,6 +176,7 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
               onChangeRowsPerPage={(e) => (handleChangeRowsPerPage(e.target.value))}
               ActionsComponent={() => (
                 <Pagination
+                  className={classes.root}
                   count={qtdPages}
                   color="primary"
                   page={pagePagination}
