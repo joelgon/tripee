@@ -118,7 +118,7 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
 
   return (
     <TableContainer component={Paper}>
-      <Table arial-label="simple table">
+      <Table arial-label="simple table" style={{background: '#f2f2f2'}}>
         <TableHead>
           <TableRow>
             {columns.map(col => (

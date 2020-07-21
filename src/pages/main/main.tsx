@@ -22,7 +22,7 @@ export default function Main() {
 
   useEffect(() => {
     async function loaders() {
-      const response = await api.get("/admin/v1/reports/users?companyId=3", {
+      const response = await api.get("/v1/reports/users?companyId=3", {
         headers: {
           Authorization:
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxkaWJhc3RpYW5pQGhvdG1haWwuY29tIiwiaWQiOjU5LCJ1c2VySWQiOjExNywiZXhwIjoxNTk5NzkzODUxLjU0NCwiaWF0IjoxNTk0NjA5ODUxfQ.OTtI51grVrmtrHMhSgGoNikNWTY9xTr1_km-zHu9W0s",
