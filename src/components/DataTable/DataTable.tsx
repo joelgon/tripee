@@ -15,6 +15,8 @@ import {
   Paper,
 } from "@material-ui/core";
 
+import './DataTable.css'
+
 interface IDatatable {
   [key: string]: any;
 }
@@ -121,13 +123,17 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
 
   }, [orderedColumn]);
 
+  const SelectItem = (item: IDatatable): void => {
+    console.log(item)
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table arial-label="simple table" style={{background: '#f2f2f2'}}>
         <TableHead>
           <TableRow>
             {columns.map(col => (
-              <TableCell className="none" key={col.key}>
+              <TableCell key={col.key} >
                 <div className="Align-items">
                   <div>{col.label}</div>
                   <button className="none-button"
@@ -156,7 +162,7 @@ const Datatable: React.FC<IDatatableProps> = ({ data: datatable, columns: datata
           {items.map(item => (
             <TableRow key={item[columns[0].key]} >
               {columns.map(col => (
-                <TableCell key={col.key} component="td">
+                <TableCell key={col.key} component="td" onClick={() => SelectItem(item)}>
                   {item[col.key]}
                 </TableCell>
               ))}
